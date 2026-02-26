@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohd Ameen — My First Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --sky:#e8f4fd;
+      --deep:#0b2545;
+      --blue:#1368aa;
+      --accent:#f0a500;
+      --muted:#5a6a7a;
+      --border:#d4e0ec;
+      --surface:#ffffff;
+    }
+    body{background:var(--sky);color:var(--deep);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+
+    /* HEADER */
+    header{
+      background:linear-gradient(135deg,var(--deep) 0%,#1a3d6e 100%);
+      color:#fff;
+      padding:3.5rem 2rem 2.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+    header::before{
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle at 80% 50%, rgba(240,165,0,0.12) 0%, transparent 60%);
+    }
+    .header-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;position:relative}
+    .avatar{
+      width:90px;height:90px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),#e07b00);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff;
+      border:3px solid rgba(255,255,255,0.3);flex-shrink:0;
+    }
+    header h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;line-height:1.1}
+    header h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+    .header-sub{font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.12em;color:rgba(255,255,255,0.6);margin-top:0.5rem;text-transform:uppercase}
+
+    /* MAIN */
+    .page{max-width:900px;margin:0 auto;padding:2.5rem 2rem 4rem;display:grid;grid-template-columns:1fr 260px;gap:2.5rem}
+    @media(max-width:640px){.page{grid-template-columns:1fr}.avatar{display:none}}
+
+    /* SECTION */
+    section{margin-bottom:2.5rem}
+    h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;
+       display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;color:var(--deep)}
+    h2::after{content:'';flex:1;height:1px;background:var(--border)}
+    h3{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.3rem}
+    p{font-size:0.92rem;color:var(--muted);line-height:1.8}
+
+    /* CARD */
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem;transition:border-color 0.2s}
+    .card:hover{border-color:var(--blue)}
+    .card-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--deep)}
+    .card-meta{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--blue);letter-spacing:0.06em;margin:0.2rem 0 0.75rem}
+
+    /* LISTS */
+    ul.bullets{list-style:none;margin-top:0.5rem}
+    ul.bullets li{font-size:0.88rem;color:var(--muted);padding:0.3rem 0 0.3rem 1.1rem;border-bottom:1px solid var(--border);position:relative}
+    ul.bullets li:last-child{border-bottom:none}
+    ul.bullets li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+
+    ul.hobbies{list-style:none;margin-top:0.4rem}
+    ul.hobbies li{display:flex;align-items:center;gap:0.65rem;padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.9rem;color:var(--muted)}
+    ul.hobbies li:last-child{border-bottom:none}
+    .ico{font-size:1rem;width:1.4rem;text-align:center;flex-shrink:0}
+
+    /* SKILLS */
+    ul.skills{list-style:none;display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem}
+    ul.skills li{font-family:'DM Mono',monospace;font-size:0.65rem;padding:0.25rem 0.65rem;border:1px solid var(--border);border-radius:3px;color:var(--muted);transition:all 0.2s}
+    ul.skills li:hover{border-color:var(--blue);color:var(--blue)}
+
+    /* TIMELINE */
+    .timeline{list-style:none;margin-top:0.5rem}
+    .timeline li{border-left:2px solid var(--border);padding-left:1rem;margin-bottom:1.1rem;position:relative}
+    .timeline li::before{content:'';position:absolute;left:-5px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+    .t-degree{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700}
+    .t-school{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--blue);margin:0.15rem 0}
+    .t-year{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted)}
+
+    /* SIDEBAR */
+    .side-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1.25rem}
+
+    /* LINKS */
+    .link-btn{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.85rem;border:1px solid var(--border);border-radius:5px;text-decoration:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:0.7rem;margin-bottom:0.5rem;transition:all 0.2s}
+    .link-btn:hover{border-color:var(--blue);color:var(--blue);transform:translateX(3px)}
+    .link-btn .arr{margin-left:auto;opacity:0.4}
+
+    /* CONTACT */
+    .ci{display:flex;gap:0.5rem;margin-bottom:0.6rem;padding-bottom:0.6rem;border-bottom:1px dashed var(--border);font-size:0.82rem}
+    .ci:last-child{border-bottom:none;margin-bottom:0}
+    .ci-label{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);min-width:52px;padding-top:2px}
+    .ci-val{color:var(--deep)}
+
+    /* BLOCKQUOTE */
+    blockquote{border-left:3px solid var(--accent);padding:0.75rem 1rem;background:#fffbf0;border-radius:0 6px 6px 0;margin-top:1rem;font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:var(--deep)}
+    blockquote cite{display:block;font-family:'DM Mono',monospace;font-style:normal;font-size:0.65rem;color:var(--muted);margin-top:0.4rem;letter-spacing:0.08em}
+
+    footer{max-width:900px;margin:0 auto;padding:1.5rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.1em}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    .page>*{animation:fadeUp 0.7s ease both}
+    .page>*:nth-child(1){animation-delay:0.1s}
+    .page>*:nth-child(2){animation-delay:0.25s}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="avatar">MA</div>
+    <div>
+      <p style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.5rem">Personal Profile · Assignment 2</p>
+      <h1>Mohd <em>Ameen</em></h1>
+      <p class="header-sub">Aerospace Engineer · CFD Specialist · CATIA V5 Expert</p>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <!-- LEFT -->
+  <div>
+    <!-- ABOUT -->
+    <section>
+      <h2>About Me</h2>
+      <p>Highly motivated Aerospace Engineering student at ACS College of Engineering, Bangalore, with a strong focus on aerodynamics and propulsion. I have worked with industry leaders like Airbus and GE Aerospace, bringing practical simulation expertise in CATIA V5, ANSYS, and MATLAB to real-world challenges.</p>
+      <blockquote>
+        "The sky is not the limit — it is just the beginning."
+        <cite>— Mohd Ameen</cite>
+      </blockquote>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section>
+      <h2>Experience</h2>
+      <div class="card">
+        <div class="card-title">CFD Intern</div>
+        <div class="card-meta">BRAHMASTRA AEROSPACE SYSTEMS · Jan 2024 – Mar 2024 · Bangalore</div>
+        <ul class="bullets">
+          <li>Conducted aerodynamic and structural simulations using ANSYS.</li>
+          <li>Gained proficiency in meshing and post-processing results.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Virtual Experience</div>
+        <div class="card-meta">AIRBUS · Oct 2025 – Nov 2025</div>
+        <ul class="bullets">
+          <li>Participated in Airbus Aerospace Work Experience program.</li>
+          <li>Explored engineering standards and sustainable aviation technologies.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Virtual Learner</div>
+        <div class="card-meta">FORGE (GE AEROSPACE) · Sep 2025 – Oct 2025</div>
+        <ul class="bullets">
+          <li>Completed GE Aerospace Job Simulation on energy source design.</li>
+          <li>Analysed compression and bypass ratios for engine performance.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section>
+      <h2>Academic Projects</h2>
+      <div class="card">
+        <div class="card-title">Biomimicking Butterfly Scale Effect</div>
+        <div class="card-meta">Feb 2025 – May 2025</div>
+        <p>Aerodynamic performance analysis using natural microstructure patterns.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Design and Flow Analysis of Metamorphing Wing</div>
+        <div class="card-meta">Jul 2024 – Jan 2025</div>
+        <p>Bio-inspired morphing wing design with CFD-based drag reduction analysis.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Inflatable Heat Shield Development</div>
+        <div class="card-meta">Nov 2025 · Ongoing</div>
+        <p>Conceptual inflatable TPS systems for re-entry missions using MATLAB and ANSYS.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Bio-Inspired Composite Materials (Onion Peel)</div>
+        <div class="card-meta">Apr 2025 · Ongoing</div>
+        <p>Researching natural structures for lightweight aerospace composite design.</p>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section>
+      <h2>Education</h2>
+      <ul class="timeline">
+        <li>
+          <div class="t-degree">B.E. Aerospace Engineering</div>
+          <div class="t-school">ACS College of Engineering, VTU · CGPA: 8.9</div>
+          <div class="t-year">2022 – 2026</div>
+        </li>
+        <li>
+          <div class="t-degree">12th Standard — Science Stream</div>
+          <div class="t-school">KK Vidyalaya IHSS, J&K · 96%</div>
+          <div class="t-year">2020 – 2022</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- HOBBIES -->
+    <section>
+      <h2>Interests &amp; Hobbies</h2>
+      <ul class="hobbies">
+        <li><span class="ico">✈️</span> RC Aircraft Design &amp; Aero Modelling</li>
+        <li><span class="ico">🚀</span> Space exploration and re-entry systems</li>
+        <li><span class="ico">🔬</span> Bio-inspired engineering research</li>
+        <li><span class="ico">📐</span> CAD modelling with CATIA V5</li>
+        <li><span class="ico">🌍</span> Interplanetary habitat design concepts</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="side-card">
+      <h2 style="font-size:1rem">Links</h2>
+      <a href="mailto:mohdameen02021@gmail.com" class="link-btn">✉ Email Me <span class="arr">→</span></a>
+      <a href="https://linkedin.com/in/mohd-ameen-616834272" target="_blank" class="link-btn">in LinkedIn <span class="arr">→</span></a>
+      <a href="tel:+919103129066" class="link-btn">✆ +91 9103129066 <span class="arr">→</span></a>
+    </div>
+
+    <div class="side-card">
+      <h2 style="font-size:1rem">Contact</h2>
+      <div class="ci"><span class="ci-label">City</span><span class="ci-val">Bangalore, India</span></div>
+      <div class="ci"><span class="ci-label">Email</span><span class="ci-val">mohdameen02021@gmail.com</span></div>
+      <div class="ci"><span class="ci-label">Phone</span><span class="ci-val">9103129066</span></div>
+      <div class="ci"><span class="ci-label">Field</span><span class="ci-val">Aerospace Engineering</span></div>
+    </div>
+
+    <div class="side-card">
+      <h2 style="font-size:1rem">Technical Skills</h2>
+      <h3>Engineering Tools</h3>
+      <ul class="skills"><li>CATIA V5</li><li>ANSYS</li><li>MATLAB</li><li>CFD Tools</li></ul>
+      <br/>
+      <h3>Domains</h3>
+      <ul class="skills"><li>Aerodynamics</li><li>Propulsion</li><li>Structures</li><li>Composites</li><li>Aircraft Design</li></ul>
+      <br/>
+      <h3>Soft Skills</h3>
+      <ul class="skills"><li>Technical Writing</li><li>Team Collaboration</li><li>Problem Solving</li><li>Supply Chain</li></ul>
+    </div>
+
+    <div class="side-card">
+      <h2 style="font-size:1rem">Programs</h2>
+      <ul class="bullets">
+        <li>IISc — Interplanetary Infrastructure (Jun 2024)</li>
+        <li>Origin Antares — Space Tech (Sep 2025)</li>
+        <li>ACS State Level Expo (May 2024)</li>
+        <li>NASA Artemis II Digital Manifest (Jan 2026)</li>
+      </ul>
+    </div>
+
+    <div class="side-card">
+      <h2 style="font-size:1rem">Certifications</h2>
+      <ul class="bullets">
+        <li>Airbus Work Experience</li>
+        <li>Catapult Satellite Applications</li>
+        <li>Aircraft Power Distribution</li>
+        <li>Energy Source Design (GE)</li>
+        <li>Bypass Ratio in Jet Engines</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <span>MOHD AMEEN · 2026</span>
+  <span>B.E. AEROSPACE · ACS COLLEGE</span>
+</footer>
+</body>
+</html>
